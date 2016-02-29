@@ -23,7 +23,6 @@
 		// 	author: "kieran",
 		// 	title: "testing"
 		// });
-
 	</script>
 </head>
 <body>	
@@ -76,5 +75,14 @@
 			uploadedAt: Date()
 		});
 	};
+	var query = new Firebase('https://documentate.firebaseio.com/meeting_notes');
+
+	query.orderByKey().on('value', function(snapshot) {
+		console.log(snapshot.key());
+		// console.log(snapshot.val());
+		// document.getElementById('firebase_Set_Data_Result').innerHTML = snapshot.val();
+	}, function(errorObject) {
+		conosle.log('Error: ' + errorObject.code);
+	})
 </script>
 </html>
