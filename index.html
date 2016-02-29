@@ -78,7 +78,24 @@
 	var query = new Firebase('https://documentate.firebaseio.com/meeting_notes');
 
 	query.orderByKey().on('value', function(snapshot) {
-		console.log(snapshot.key());
+		document.getElementById('firebase_Set_Data_Result').innerHTML = "";
+		console.log(snapshot.val());
+		for (var key in snapshot.val()) {
+			console.log(snapshot.val()[key]);
+			var entry = document.createElement('div');
+			var title = document.createElement('h3');
+			var content = document.createElement('p');
+			var createdAt = document.createElement('p');
+
+			title.innerHTML = snapshot.val()[key].title;
+			content.innerHTML = snapshot.val()[key].content;
+			createdAt.innerHTML = "Created At: " + snapshot.val()[key].uploadedAt + "<hr>";
+			entry.appendChild(title);
+			entry.appendChild(content);
+			entry.appendChild(createdAt);
+			document.getElementById('firebase_Set_Data_Result').appendChild(entry);
+
+		}
 		// console.log(snapshot.val());
 		// document.getElementById('firebase_Set_Data_Result').innerHTML = snapshot.val();
 	}, function(errorObject) {
