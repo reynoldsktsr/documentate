@@ -1,38 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
 	<title>Firebase Temporary Setup</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
 	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 	<script>
-		/*var firebase = new Firebase('https://documentate.firebaseio.com/');
-		var usersRef = firebase.child("users");
-		usersRef.set({
-		  Kieran: {
-		    date_of_birth: "nah",
-		    full_name: "Alan Turing"
-		  },
-		  gracehop: {
-		    date_of_birth: "December 9, 1906",
-		    full_name: "Grace Hopper"
-		  }
-		});
-		var postsRef = firebase.child('posts');
-		var newPostRef = postsRef.push();
-		newPostRef.set({
-			author: "kieran",
-			title: "testing"
-		});*/
+		var firebase = new Firebase('https://documentate.firebaseio.com/');
+		// var usersRef = firebase.child("users");
+		// usersRef.set({
+		//   Kieran: {
+		//     date_of_birth: "nah",
+		//     full_name: "Alan Turing"
+		//   },
+		//   gracehop: {
+		//     date_of_birth: "December 9, 1906",
+		//     full_name: "Grace Hopper"
+		//   }
+		// });
+		// var postsRef = firebase.child('posts');
+		// var newPostRef = postsRef.push();
+		// newPostRef.set({
+		// 	author: "kieran",
+		// 	title: "testing"
+		// });
 
 	</script>
 </head>
-<body>
-<form>
-	<select>
-		<option>Option 1</option>
-		<option>Option 2</option>
-	</select>
-	<input></input>
-</form>
+<body>	
+	<div id="angular_Setup">
+		<label>Name:</label>
+		<input type="text" ng-model="yourName" placeholder="Enter a name here" />
+		<h1>Hello {{yourName}}!</h1>
+	</div>
+	<hr />
+	<div id="firebase_Set_Data">
+		<form name="firebase_Set_Data_Form">
+			<div class="formElement">
+				<label for="data_Type">Data Type: </label>
+				<select id="data_Type">
+					<option value="meeting_notes">Meeting Notes</option>
+					<option value="general_notes">General Notes</option>
+				</select>
+			</div>
+			<div class="formElement">
+				<label for="data_Title">Data Title: </label>
+				<input type="text" id="data_Title" />
+			</div>
+			<div class="formElement">
+				<label for="data_Content">Data Content:</label>
+				<textarea id="data_Content"></textarea>
+			</div>
+			<div class="formButtom">
+				<button type="submit" onclick="submitThisForm(this.form);">Submit</button>
+			</div>
+		</form>
+		<div id="firebase_Set_Data_Result"></div>
+	</div>
+
 </body>
+<script type="text/javascript">
+	function submitThisForm(form) {
+		var formName = form.name;
+		var formRef = form.data_Type.value;
+		var formModel;
+		// switch(formName) {
+		// 	case "firebase_Set_Data_Form":
+		// 		formModel = 1;
+		// 		break;
+		// }
+		var firebaseRef = firebase.child(formRef);
+		var newFirebaseRef = firebaseRef.push();
+		newFirebaseRef.set({
+			title: form.data_Title.value,
+			content: form.data_Content.value,
+			uploadedAt: Date()
+		});
+	};
+</script>
 </html>
