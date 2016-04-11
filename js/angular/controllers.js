@@ -3,6 +3,9 @@ var documentateApp = angular.module('documentateApp',[]);
 
 documentateApp.controller('AuthorizationController', ['$scope', function($scope) {
 	$scope.auth = user.checkAuth();
+	if (user.checkAuth()) {
+		$scope.icon = user.getGravatar();
+	}
 }]);
 
 documentateApp.controller('ModalController',function($scope) {

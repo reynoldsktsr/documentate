@@ -29,6 +29,11 @@ var user = new function() {
 			return false;
 		}
 	}
+	this.getGravatar = function(event) {
+		var uid = this.ref.getAuth().uid;
+		var hash = uid.replace(/-/g,"");
+		return 'http://www.gravatar.com/avatar/'+hash+'?d=retro&s=32';
+	}
 
 	this.logout = function(event) {
 		this.ref.unauth();
@@ -99,8 +104,3 @@ var user = new function() {
 		}
 	}
 }
-$('.invalid').on('click',function() {
-	setTimeout(function() {
-		$(this).popover('hide');
-	},2000)
-})
