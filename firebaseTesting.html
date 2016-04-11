@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<title>Firebase Temporary Setup</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script>
+		var firebase = new Firebase('https://documentate.firebaseio.com/');
+	</script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<style type="text/css">
+	.block { width: 600px; padding: 10px;}
+	</style>
+</head>
+<body>
+	<div class="col-xs-12">
+		<div id="angular_Setup">
+			<label>Name:</label>
+			<input type="text" ng-model="yourName" placeholder="Enter a name here" />
+			<h1>Hello {{yourName}}!</h1>
+		</div>
+		<hr />
+		<a href="register.html">Click here to Register</a>
+		<a href="login.html">Click here to Login</a>
+		<hr />
+	</div>
+
+	<div id="firebase_Set_Data" class="col-xs-6">
+		<h1>New Entry</h1>
+		<form name="firebase_Set_Data_Form" class="form-horizontal">
+			<div class="formElement form-group">
+				<label for="data_Type" class="col-xs-2">Data Type: </label>
+				<div class=" col-xs-10">
+					<select id="data_Type" class="form-control">
+						<option value="meeting_notes">Meeting Notes</option>
+						<option value="general_notes">General Notes</option>
+					</select>
+				</div>
+			</div>
+			<div class="formElement form-group">
+				<label for="data_Title" class="col-xs-2">Data Title: </label>
+				<div class="col-xs-10">
+					<input type="text" id="data_Title" class="form-control" />
+				</div>
+			</div>
+			<div class="formElement form-group">
+				<label for="data_Content" class="col-xs-2">Data Content:</label>
+				<div class="col-xs-10">
+					<textarea id="data_Content" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="formButtom form-group">
+				<div class="col-xs-2"></div>
+				<div class="col-xs-10">
+					<button type="submit" onclick="submitData.submitThisForm(this.form);" class="btn btn-primary col-xs-12">Submit</button>
+				</div>
+			</div>
+		</form>
+		<hr>
+		<label>Select a View</label>
+		<select id="view_Selector" class="form-control" onchange="updateTable()">
+		<!-- <option></option> -->
+		</select>
+		<div id="firebase_Set_Data_Result"></div>
+		<table id="main_View" class="table table-striped">
+		</table>
+	</div>
+	<div class="col-xs-6">
+		<h1>Edit Entry</h1>
+		<form name="firebase_Edit_Data_Form" class="form-horizontal">
+			<input hidden id="data_Key_Edit" value="">
+			<input hidden id="data_Category_Edit" value="">
+			<div class="form-group">
+				<label for="data_Title_Edit" class="col-xs-2">Title:</label>
+				<div class="col-xs-10">
+					<input type="text" id="data_Title_Edit" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="data_Content_Edit" class="col-xs-2">Content:</label>
+				<div class="col-xs-10">
+					<textarea id="data_Content_Edit" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2"></div>
+				<div class="col-xs-10">
+					<button class="btn btn-primary col-xs-12" onclick="editEntry.update(this.form);">Submit</button>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+
+</body>
+<script src="js/views.js"></script>
+<script src="js/submit.js"></script>
+<script src="js/edit.js"></script>
+<script type="text/javascript">
+	// function submitThisForm(form) {
+	// 	var formName = form.name;
+	// 	var formRef = form.data_Type.value;
+	// 	var formModel;
+	// 	var firebaseRef = firebase.child(formRef);
+	// 	var newFirebaseRef = firebaseRef.push();
+	// 	newFirebaseRef.set({
+	// 		title: form.data_Title.value,
+	// 		content: form.data_Content.value,
+	// 		uploadedAt: Date()
+	// 	});
+	// };
+</script>
+</html>

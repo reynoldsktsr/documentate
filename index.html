@@ -1,105 +1,73 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="documentateApp">
 <head>
-	<title>Firebase Temporary Setup</title>
+	<title>Documentate</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
 	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-	<script>
-		var firebase = new Firebase('https://documentate.firebaseio.com/');
-		// var usersRef = firebase.child("users");
-		// usersRef.set({
-		//   Kieran: {
-		//     date_of_birth: "nah",
-		//     full_name: "Alan Turing"
-		//   },
-		//   gracehop: {
-		//     date_of_birth: "December 9, 1906",
-		//     full_name: "Grace Hopper"
-		//   }
-		// });
-		// var postsRef = firebase.child('posts');
-		// var newPostRef = postsRef.push();
-		// newPostRef.set({
-		// 	author: "kieran",
-		// 	title: "testing"
-		// });
-	</script>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="js/user.js"></script>
+	<script src="js/angular/app.js"></script>
+	<script src="js/angular/controllers.js"></script>
+	<!-- <script src="js/form.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/docu_styles.css">
 </head>
-<body>	
-	<div id="angular_Setup">
-		<label>Name:</label>
-		<input type="text" ng-model="yourName" placeholder="Enter a name here" />
-		<h1>Hello {{yourName}}!</h1>
-	</div>
-	<hr />
-	<div id="firebase_Set_Data">
-		<form name="firebase_Set_Data_Form">
-			<div class="formElement">
-				<label for="data_Type">Data Type: </label>
-				<select id="data_Type">
-					<option value="meeting_notes">Meeting Notes</option>
-					<option value="general_notes">General Notes</option>
-				</select>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#documentate-navbar" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">
+					<img src="" alt="documentateLogo">
+				</a>
 			</div>
-			<div class="formElement">
-				<label for="data_Title">Data Title: </label>
-				<input type="text" id="data_Title" />
+
+			<div class="collapse navbar-collapse" id="documentate-navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Info</a></li>
+					<li><a href="#">Features</a></li>
+					<li><a href="#">Support</a></li>
+				</ul>
+				<div class="navbar-form navbar-right" ng-controller="AuthorizationController">
+					<div ng-if="auth == false">
+						<button class="btn btn-default" data-toggle="modal" data-target="#login-modal">Log In</button>
+						<button class="btn btn-primary" data-toggle="modal" data-target="#register-modal">Register</button>
+					</div>
+					<div ng-if="auth == true">
+						<a href="#">Username Account</a>
+						<button class="btn btn-primary" onclick="user.logout()">Log Out</button>
+					</div>
+				</div>
 			</div>
-			<div class="formElement">
-				<label for="data_Content">Data Content:</label>
-				<textarea id="data_Content"></textarea>
-			</div>
-			<div class="formButtom">
-				<button type="submit" onclick="submitThisForm(this.form);">Submit</button>
-			</div>
-		</form>
-		<div id="firebase_Set_Data_Result"></div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Documentate</h1>
+		</div>
 	</div>
 
+	<footer class="footer">
+		<div class="container">
+			<div class="col-xs-4">
+				<p class="text-muted">Footer</p>
+			</div>
+		</div>
+	</footer>
+
+
+
+	<div ng-controller="ModalController">
+		<div ng-include="'template/modal.html'"></div>
+	</div>
 </body>
-<script type="text/javascript">
-	function submitThisForm(form) {
-		var formName = form.name;
-		var formRef = form.data_Type.value;
-		var formModel;
-		// switch(formName) {
-		// 	case "firebase_Set_Data_Form":
-		// 		formModel = 1;
-		// 		break;
-		// }
-		var firebaseRef = firebase.child(formRef);
-		var newFirebaseRef = firebaseRef.push();
-		newFirebaseRef.set({
-			title: form.data_Title.value,
-			content: form.data_Content.value,
-			uploadedAt: Date()
-		});
-	};
-	var query = new Firebase('https://documentate.firebaseio.com/meeting_notes');
 
-	query.orderByKey().on('value', function(snapshot) {
-		document.getElementById('firebase_Set_Data_Result').innerHTML = "";
-		console.log(snapshot.val());
-		for (var key in snapshot.val()) {
-			console.log(snapshot.val()[key]);
-			var entry = document.createElement('div');
-			var title = document.createElement('h3');
-			var content = document.createElement('p');
-			var createdAt = document.createElement('p');
 
-			title.innerHTML = snapshot.val()[key].title;
-			content.innerHTML = snapshot.val()[key].content;
-			createdAt.innerHTML = "Created At: " + snapshot.val()[key].uploadedAt + "<hr>";
-			entry.appendChild(title);
-			entry.appendChild(content);
-			entry.appendChild(createdAt);
-			document.getElementById('firebase_Set_Data_Result').appendChild(entry);
-
-		}
-		// console.log(snapshot.val());
-		// document.getElementById('firebase_Set_Data_Result').innerHTML = snapshot.val();
-	}, function(errorObject) {
-		conosle.log('Error: ' + errorObject.code);
-	})
-</script>
+	
 </html>

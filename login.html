@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Documentate Login</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+</head>
+<body>
+Login Here:
+
+<form name="firebase_Login_User_Form">
+	<div class="formElement">
+		<label for="user_Email">Email: </label>
+		<input type="text" id="user_Email" />
+	</div>
+	<div class="formElement">
+		<label for="user_Password">Password: </label>
+		<input type="password" id="user_Password" />
+	</div>
+	<div class="formButton">
+		<button type="submit" onclick="loginUser(); return false;">Log In</button>
+	</div>
+</form>
+
+</body>
+	<script type="text/javascript">
+		function loginUser() {
+			var ref = new Firebase('https://documentate.firebaseio.com');
+			ref.authWithPassword({
+				email	 : document.getElementById('user_Email').value,
+				password : document.getElementById('user_Password').value
+			}, function(error, userData) {
+				if (error) {
+					console.log(error);
+					// window.location.href ="index.html";
+				} else {
+					console.log("Logged In user with payload: " + userData);
+				}
+			})
+		}
+	</script>
+</html>

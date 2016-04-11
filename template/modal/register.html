@@ -1,0 +1,71 @@
+
+	<div id="register-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 style="display: inline-block;">Register</h3>
+					<p style="float: right; display: inline-block; margin-top: 25px;">Already Registered? <a href="#" data-toggle="modal" data-target="#login-modal" data-dismiss="modal">Click Here</a></p>
+					<a href="#" data-toggle="modal" data-target="#test-modal" data-dismiss="modal">test</a>
+				</div>
+				<div class="modal-body">
+					<form id="register_modal_form">
+
+						<div class="form-inline">
+							<div class="form-group">
+								<label class="sr-only" for="register_modal_fname">First Name: </label>
+								<input class="form-control" id="register_modal_fname" name="registerModalFname" type="text" placeholder="First Name" data-trigger="manual" data-content="Please enter a valid first name" data-placement="top">
+							</div>
+							<div class="form-group">
+								<label class="sr-only" for="register_modal_lname">Last Name: </label>
+								<input class="form-control" id="register_modal_lname" name="registerModalLname" type="text" placeholder="Last Name" data-trigger="manual" data-content="Please enter a valid last name" data-placement="top">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="sr-only" for="register_modal_username">User Name: </label>
+							<input class="form-control" id="register_modal_username" name="registerModalUsername" type="text" placeholder="User Name" data-trigger="manual" data-content="Please enter a valid user name" data-placement="top">
+						</div>
+
+						<div class="form-inline" ng-controller="DatePicker">
+							<div class="form-group date">
+								<select class="form-control" id="register_modal_day" ng-model="month" ng-options="currMonth for currMonth in months"></select>
+								<select class="form-control" id="register_modal_month" ng-model="day" ng-options="currDay for currDay in days"></select>
+								<select class="form-control" id="register_modal_year" ng-model="year" ng-options="currYear for currYear in years"></select>
+							</div>
+						</div>
+						<div class="error_message alert alert-danger" id="register_invalid_birth_date" role="alert">Please enter a valid birth date</div>
+
+						<div class="form-group">
+							<label class="sr-only" for="register_modal_email">Email: </label>
+							<input class="form-control" id="register_modal_email" name="registerModalEmail" type="email" placeholder="Email">
+						</div>
+						<div class="error_message alert alert-danger" id="register_invalid_email" role="alert">Please enter a valid email</div>
+
+						<div class="form-group">
+							<label class="sr-only" for="register_modal_reenter_email">Re-Enter Email: </label>
+							<input class="form-control" id="register_modal_reenter_email" name="registerModalReenterEmail" type="email" placeholder="Re-Enter Email">
+						</div>
+						<div class="error_message alert alert-danger" id="register_invalid_reenter_email" role="alert">Please re-enter your valid email</div>
+						<div id="register_invalid_email_not_matchk"></div>
+
+						<div class="form-group">
+							<label class="sr-only" for="register_modal_password">Password: </label>
+							<input class="form-control" id="register_modal_password" name="registerModalEmail" type="password" placeholder="Password">
+						</div>
+						<div class="error_message alert alert-danger" id="register_invalid_password" role="alert">Please enter a valid password</div>
+
+						<div class="form-group">
+							<label class="sr-only" for="register_modal_reenter_password">Re-Enter Password: </label>
+							<input class="form-control" id="register_modal_reenter_password" name="registerModalReenterEmail" type="password" placeholder="Re-Enter Password">
+						</div>
+						<div class="error_message alert alert-danger" id="register_invalid_reenter_password" role="alert">Please re-enter your password</div>
+
+						<button type="submit" class="btn btn-primary btn-block" onclick="user.clearErrors();user.register(event,this.form)">Register</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<a href="#">Forgot your Password?</a>
+				</div>
+			</div>
+		</div>
+	</div>

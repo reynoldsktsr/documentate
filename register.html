@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Documentate Register</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+</head>
+<body>
+Register Here:
+
+<form name="firebase_Register_User_Form">
+	<div class="formElement">
+		<label for="user_Email">Email: </label>
+		<input type="text" id="user_Email" />
+	</div>
+	<div class="formElement">
+		<label for="user_Password">Password: </label>
+		<input type="password" id="user_Password" />
+	</div>
+	<div class="formButton">
+		<button type="submit" onclick="registerUser(); return false;">Register</button>
+	</div>
+</form>
+
+</body>
+	<script type="text/javascript">
+		function registerUser() {
+			var ref = new Firebase('https://documentate.firebaseio.com');
+			ref.createUser({
+				email	 : document.getElementById('user_Email').value,
+				password : document.getElementById('user_Password').value
+			}, function(error, userData) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log("Created User with uid: " + userData.uid);
+					console.log(userData);
+				}
+			})
+		}
+	</script>
+</html>
