@@ -16,8 +16,13 @@
 							<label class="sr-only" for="login-modal-pass">Password: </label>
 							<input class="form-control" id="loginModalPass" name="loginModalPass" type="password" placeholder="Password">
 						</div>
-						<button type="submit" class="btn btn-primary btn-block" onclick="user.login(event,this.form)">Log In</button>
+						<button type="submit" class="btn btn-primary" onclick="user.login(event,this.form)">Log In</button>
 					</form>
+					<a class="btn btn-social btn-github" onclick="user.loginSpecial(event,'github');">
+						<span class="fa fa-github"></span>Login with Github
+					</a>
+					<!-- <button class="btn btn-primary">Login with Github</button> -->
+					<!-- <button class="btn btn-primary">Login with Github</button> -->
 				</div>
 				<div class="modal-footer">
 					<a href="#">Forgot your Password?</a>

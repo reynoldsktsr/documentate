@@ -6,12 +6,17 @@
 	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 	<script src="js/user.js"></script>
 	<script src="js/angular/app.js"></script>
 	<script src="js/angular/controllers.js"></script>
 	<!-- <script src="js/form.js"></script> -->
+
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/docu_styles.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -40,9 +45,23 @@
 						<button class="btn btn-primary" data-toggle="modal" data-target="#register-modal">Register</button>
 					</div>
 					<div ng-if="auth == true">
-						<a href="#"><img src="{{icon}}"></a>
+						<div class="dropdown" style="display: inline-block;">
+							<span data-toggle="dropdown">
+								<img src="{{icon}}">
+								<span class="caret"></span>
+							</span>
+
+								<div class="dropdown-menu">
+									<div class="dropdown-header">Signed in as <span>{{name}}</span></div>
+									<hr />
+									<li><a href="#">Projects</a></li>
+									<li><a href="#">Settings</a></li>
+									<li><hr /></li>
+									<li><a onclick="user.logout()">Log Out</a></li>
+								</div>
+						</div>
+
 						
-						<button class="btn btn-primary" onclick="user.logout()">Log Out</button>
 					</div>
 				</div>
 			</div>

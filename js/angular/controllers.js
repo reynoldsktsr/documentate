@@ -4,6 +4,8 @@ var documentateApp = angular.module('documentateApp',[]);
 documentateApp.controller('AuthorizationController', ['$scope', function($scope) {
 	$scope.auth = user.checkAuth();
 	if (user.checkAuth()) {
+		$scope.uid = user.userData.uid;
+		$scope.name = user.getName(user.userData.uid);
 		$scope.icon = user.getGravatar();
 	}
 }]);

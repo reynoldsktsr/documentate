@@ -1,4 +1,6 @@
 var user = new function() {
+	this.userData;
+
 	this.ref = new Firebase('https://documentate.firebaseio.com');
 	this.login = function(event,form) {
 		event.preventDefault();
@@ -17,12 +19,23 @@ var user = new function() {
 			}
 		})
 	}
+	this.loginSpecial = function(event,platform) {
+		this.ref.authWithOAuthPopup(platform, function(error, authData) {
+		  if (error) {
+		    console.log("Login Failed!", error);
+		  } else {
+		    console.log("Authenticated successfully with payload:", authData);
+		    location.reload();
+		  }
+		});
+	}
 
 	this.checkAuth = function(event) {
 		var authData = this.ref.getAuth();
 		if (authData) {
 			console.log(authData);
 			console.log("User " + authData.uid + " is logged in with " + authData.provider);
+			this.userData = authData;
 			return true;
 		} else {
 			console.log("User is logged out");
