@@ -2,9 +2,10 @@ var user = new function() {
 	this.userData;
 
 	this.ref = new Firebase('https://documentate.firebaseio.com');
+
 	this.login = function(event,form) {
 		event.preventDefault();
-		console.log(form.loginModalPass.value);
+		// console.log(form.loginModalPass.value);
 		this.ref.authWithPassword({
 			email	 : form.loginModalEmail.value,
 			password : form.loginModalPass.value
@@ -18,7 +19,8 @@ var user = new function() {
 				location.reload();
 			}
 		})
-	}
+	};
+	
 	this.loginSpecial = function(event,platform) {
 		this.ref.authWithOAuthPopup(platform, function(error, authData) {
 		  if (error) {
@@ -115,5 +117,9 @@ var user = new function() {
 		for (i = 0; i < errors.length; i++) {
 			errors[i].style.display = "none";
 		}
+	}
+
+	this.getName = function() {
+
 	}
 }
